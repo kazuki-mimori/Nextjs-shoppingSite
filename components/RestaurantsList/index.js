@@ -15,26 +15,32 @@ const query = gql `
     }
   }`
 
-const RestaurantsList = () => {
+const RestaurantsList = (props) => {
   const {loading, error, data} = useQuery(query);
-
-  console.log(data?.image);
-  if (data?.restaurants && data?.restaurants.length) {
+  if (data) {
+    const searchQuery = data.restaurants.filter((restaurant) => (
+      restaurant.name.toLowerCase().includes(props.search)
+    ))
     return (
       <Row>
-        {data?.restaurants.map((res) => (
+        {searchQuery.map((res) => (
           <>
-          <Col xs="6" sm="4" >
+          <Col xs="6" sm="4" key={res.id}>
             <Card style={{margin:"0.05rem 20px 0.5rem"}}>
-              <CardImg src={`${process.env.NEXT_PUBLIC_API_URL}${res?.image[0]}`} top={true} style={{height: 250}}/>
+              <CardImg 
+                src={`${process.env.NEXT_PUBLIC_API_URL}${res?.image[0].url}`} 
+                top={true} 
+                style={{height: 250}}
+              />
               <CardBody>
-                <CardTitle>Italian restaurant</CardTitle>
-                <CardTitle>イタリアンのレストランです。</CardTitle>
+                <CardTitle>{res.name}</CardTitle>
+                <CardTitle>{res.description}</CardTitle>
               </CardBody>  
               <div className="card-footer">
                 <Link 
-                  href="/restaurants?id=1"
-                  as="/restaurants?id=1">
+                  href={`/restaurants/${res.id}`}
+                  as={`/restaurants?id=${res.id}`}
+                >
                     <a className="btn btn-primary">もっと見る</a>
                 </Link>
               </div>
