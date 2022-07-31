@@ -33,31 +33,40 @@ const Restaurants = (props) => {
     const restaurant = data
     return (
       <>
-      <h1>{restaurant?.restaurant?.name}</h1>
-      <Row>
-        {restaurant?.restaurant?.dishes?.map((res) => (
-          <>
-          <Col xs="6" sm="4" key={res.id} style ={{}}>
-            <Card style={{margin:"0.05rem 20px 0.5rem"}}>
-              <CardImg 
-                src={`${process.env.NEXT_PUBLIC_API_URL}${res?.image.url}`} 
-                top={true} 
-                style={{height: 250}}
-              />
-              <CardBody>
-                <CardTitle>{res.name}</CardTitle>
-                <CardTitle>{res.description}</CardTitle>
-              </CardBody>  
-              <div className="card-footer">
-               <Button outline color="primary">
-                 + カートに入れる
-                </Button>
-              </div>
-            </Card>
-          </Col>  
-          </>
-        ))}
-      </Row>
+      <section>
+        <h1>{restaurant?.restaurant?.name}</h1>
+          <Row>
+            {restaurant?.restaurant?.dishes?.map((res) => (
+              <>
+              <Col xs="6" sm="4" key={res.id} style ={{}}>
+                <Card style={{margin:"0.05rem 20px 0.5rem"}}>
+                  <CardImg 
+                    src={`${process.env.NEXT_PUBLIC_API_URL}${res?.image.url}`} 
+                    top={true} 
+                    style={{height: 250}}
+                  />
+                  <CardBody>
+                    <CardTitle>{res.name}</CardTitle>
+                    <CardTitle>{res.description}</CardTitle>
+                  </CardBody>  
+                  <div className="card-footer">
+                   <Button outline color="primary">
+                     + カートに入れる
+                    </Button>
+                  </div>
+                </Card>
+              </Col>  
+              </>
+            ))}
+          </Row>
+      </section>
+      <style jsx>
+        {`
+        section {
+          margin: 30px;
+        }
+        `}
+      </style>
       </>
       ) 
   } else return <h1>レストランが見つかりませんでした。</h1>
