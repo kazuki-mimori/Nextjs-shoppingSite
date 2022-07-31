@@ -17,6 +17,8 @@ const query = gql `
 
 const RestaurantsList = (props) => {
   const {loading, error, data} = useQuery(query);
+  if(error) return "レストランの読み込みに失敗しました。"
+  if(loading) return <h1>読み込み中...</h1>
   if (data) {
     const searchQuery = data.restaurants.filter((restaurant) => (
       restaurant.name.toLowerCase().includes(props.search)
@@ -38,8 +40,8 @@ const RestaurantsList = (props) => {
               </CardBody>  
               <div className="card-footer">
                 <Link 
-                  href={`/restaurants/${res.id}`}
-                  as={`/restaurants?id=${res.id}`}
+                  as={`/restaurants/${res.id}`}
+                  href={`/restaurants?id=${res.id}`}
                 >
                     <a className="btn btn-primary">もっと見る</a>
                 </Link>
@@ -54,7 +56,7 @@ const RestaurantsList = (props) => {
           a {
             color: white;
           }
-          a:linl {
+          a:link {
             text-decoation: none;
             color: white;
           }
@@ -65,10 +67,6 @@ const RestaurantsList = (props) => {
         </style>
       </Row>
       ) 
-  } else return <h1>
-    レストランが見つかりませんでした。
-  </h1>
-
-  
+  } else return <h1>レストランが見つかりませんでした。</h1>
 }
 export default RestaurantsList;
