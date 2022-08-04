@@ -1,24 +1,46 @@
-import React, { Component,　useState } from "react";
+import React, { Component } from "react";
 import App from "next/app";
 import Head from "next/head"
 import Layout from "../components/Layout";
 import withData from "../lib/apollo";
 import AppContext from "../context/Appcontext";
+import Cookies from "js-cookie";
 
 class MyApp extends App {
   state = {
     user: null,
-  }
+  };
 
   setUser = (user) => {
-    this.setState({user})
+    this.setState({user});
+  };
+
+  ///既にユーザーのクッキが残っているか確認
+  componentDidMount() {
+    const token = Cookies.get("token");
+    if (token) {
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/me`, {
+        headers: {
+          Authorization: `Bearer ${token}` ,
+        },
+      })
+      .then(async(res) => {
+        if(!res.ok) {
+          Cookies.remove("token");
+          this.setState({user: null});
+          return null;
+        }
+        const user = await res.json();
+        this.setUser(user) //ログイン
+      })
+    }
   }
 
   render() {
     const { Component, pageProps } = this.props;
     return(
       <AppContext.Provider 
-        value={{user: this.state.user, setUser:this.setUser}}
+        value={{user: this.state.user, setUser: this.setUser}}
       >
         <>
           <Head>

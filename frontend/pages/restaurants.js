@@ -3,6 +3,7 @@ import Link from "next/link"
 import { gql } from "apollo-boost"
 import { useQuery } from "@apollo/react-hooks"
 import { useRouter } from "next/router";
+import Cart from "../components/Cart";
 
 const GET_RESTAURANT_DISHES = gql `
   query ($id : ID!) {
@@ -58,8 +59,14 @@ const Restaurants = (props) => {
               </Col>  
               </>
             ))}
+            <Col xs="3" style={{padding: 0}}>
+              <div>
+                <Cart/>
+              </div>
+            </Col>
           </Row>
       </section>
+
       <style jsx>
         {`
         section {
@@ -67,6 +74,7 @@ const Restaurants = (props) => {
         }
         `}
       </style>
+  
       </>
       ) 
   } else return <h1>レストランが見つかりませんでした。</h1>

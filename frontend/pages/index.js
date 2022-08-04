@@ -7,7 +7,7 @@ import {
   Input 
 } from "reactstrap"
 import RestaurantsList from "../components/RestaurantsList"
-const index = () => {
+const Index = () => {
   const [query, setQuery] = useState("");
 
   return (
@@ -38,4 +38,4 @@ const index = () => {
   );
 }
 
-export default index;
+export default Index;
