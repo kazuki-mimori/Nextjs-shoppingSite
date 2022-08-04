@@ -59,7 +59,7 @@ class MyApp extends App {
     else {
       this.setState({
         cart: {
-          item: this.state.cart.items.map((item) => 
+          items: this.state.cart.items.map((item) => 
           item.id === newItem.id 
           ? Object.assign({}, item, {quantity: item.quantity + 1}) 
           : item
