@@ -6,7 +6,6 @@ import AppContext from '../../context/Appcontext';
 const Cart = () => {
   const appContext = useContext(AppContext)
   const {cart} = appContext;
-  console.log(cart);
   return (
     <div>
       <Card style={{padding:"10px 5px"}}>
@@ -30,7 +29,7 @@ const Cart = () => {
           ? cart.items.map((item) => {
             if(item.quantity > 0) {
               return (
-                <div className="item-one" style={{marginBottom: 15}}>
+                <div key={item.id} className="item-one" style={{marginBottom: 15}}>
                   <div>
                     <span id="item-price">&nbsp; {item.price}円</span>
                     <span id="item-name">&nbsp; {item.name}</span>

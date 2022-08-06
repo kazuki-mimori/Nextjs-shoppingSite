@@ -20,8 +20,7 @@ class MyApp extends App {
   componentDidMount() {
     const token = Cookies.get("token"); //tokenの中にjwtが入っている
     const cart = Cookies.get("cart");
-
-    if(cart !== "undefined") {
+    if(cart !== "undefined" && typeof cart ==="string") {
       JSON.parse(cart).forEach((item) => {
         this.setState({
           cart: {
